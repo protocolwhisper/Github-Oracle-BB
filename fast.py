@@ -9,12 +9,13 @@ tasks = {}
 
 
 class TaskRequest(BaseModel):
-    user_id: int #Instead of this we need to have the wallet address
+    user_id: str #Wallet Address
     url_input: str
+    task_index: int
 
 
 @app.get("/status/{user_id}/task")
-async def get_task_status(user_id: int):
+async def get_task_status(user_id: str):
     task = tasks.get(user_id)
     if task:
         task_status = AsyncResult(task.id, app=poll_github_api)
