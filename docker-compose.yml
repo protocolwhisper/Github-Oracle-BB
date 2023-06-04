@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   redis:
     image: redis:latest
@@ -6,8 +6,22 @@ services:
       - "6379:6379"
 
   redis-commander:
-    build: .
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
     ports:
-      - "8001:8001"
+      - "8081:8081"
     depends_on:
       - redis
+
+  fastapi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    command: [ "/usr/bin/supervisord" ]

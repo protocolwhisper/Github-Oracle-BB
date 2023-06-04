@@ -1,0 +1,20 @@
+2023-06-04 08:46:49,804 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2023-06-04 08:46:49,809 INFO supervisord started with pid 1
+2023-06-04 08:46:50,818 INFO spawned: 'celery' with pid 7
+2023-06-04 08:46:50,823 INFO spawned: 'fastapi' with pid 8
+2023-06-04 08:46:52,579 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-06-04 08:46:52,579 INFO success: fastapi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-06-04 08:52:01,117 WARN received SIGTERM indicating exit request
+2023-06-04 08:52:01,117 INFO waiting for celery, fastapi to die
+2023-06-04 08:52:01,321 INFO stopped: fastapi (exit status 0)
+2023-06-04 08:52:02,953 INFO stopped: celery (exit status 0)
+2023-06-04 08:52:42,657 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2023-06-04 08:52:42,663 INFO supervisord started with pid 1
+2023-06-04 08:52:43,674 INFO spawned: 'celery' with pid 7
+2023-06-04 08:52:43,679 INFO spawned: 'fastapi' with pid 8
+2023-06-04 08:52:45,434 INFO success: celery entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-06-04 08:52:45,434 INFO success: fastapi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2023-06-04 08:53:21,651 WARN received SIGTERM indicating exit request
+2023-06-04 08:53:21,652 INFO waiting for celery, fastapi to die
+2023-06-04 08:53:21,888 INFO stopped: fastapi (exit status 0)
+2023-06-04 08:53:23,605 INFO stopped: celery (exit status 0)

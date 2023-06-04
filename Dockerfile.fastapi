@@ -1,13 +1,17 @@
-# Dockerfile.fastapi
 FROM python:3.9
 
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY requirements.txt /app
 
-# Copy the source code:
-COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+RUN apt-get update && apt-get install -y supervisor
+
+COPY . /app
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 8000
+
+CMD ["/usr/bin/supervisord"]
