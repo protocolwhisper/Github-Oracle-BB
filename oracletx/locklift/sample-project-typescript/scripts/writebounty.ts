@@ -4,10 +4,16 @@ import { Contract, ProviderRpcClient, Signer, Address } from "locklift";
 import { FactorySource } from "../build/factorySource";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import { load } from 'ts-dotenv';
+
+const env = load({
+  SC_ADDRESS: String,
+});
+
 
 //Importing Abi
-import { abi as ballotContractAbi } from "../build/bountyboard.abi";
-let addyString = "0:459a814648850c98ff5781758b3066170095d82c738a6f42f33c448665264a18";
+import { abi as ballotContractAbi } from "./bountyboard.abi";
+let addyString = env.SC_ADDRESS
 let addy = new Address(addyString);
 const bountycontract = locklift.factory.getDeployedContract("bountyboard", addy);
 async function updateBountyStatus() {
