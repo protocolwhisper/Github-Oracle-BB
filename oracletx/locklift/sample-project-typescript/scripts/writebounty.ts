@@ -1,0 +1,22 @@
+//import { Address, Contract, ProviderRpcClient } from "everscale-inpage-provider";
+import { EverscaleStandaloneClient, SimpleKeystore } from "everscale-standalone-client/nodejs";
+import { Contract, ProviderRpcClient, Signer, Address } from "locklift";
+import { FactorySource } from "../build/factorySource";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
+//Importing Abi
+import { abi as ballotContractAbi } from "../build/bountyboard.abi";
+let addyString = "0:459a814648850c98ff5781758b3066170095d82c738a6f42f33c448665264a18";
+let addy = new Address(addyString);
+const bountycontract = locklift.factory.getDeployedContract("bountyboard", addy);
+async function updateBountyStatus() {
+  const signer = (await locklift.keystore.getSigner("0"))!;
+  const response = await bountycontract.methods
+    .updateBountyStatus({ index: 0, state: 4 })
+    .sendExternal({ publicKey: signer.publicKey });
+  console.log(response);
+}
+updateBountyStatus().catch(error => {
+  console.error("An error occurred:", error);
+});

@@ -1,0 +1,131 @@
+pragma ever-solidity >= 0.61.2;
+pragma AbiHeader expire;
+pragma AbiHeader pubkey;
+
+contract BountyBoard {
+    address ORACLE_ADDRESS;
+    
+    enum Status {
+        available, 
+        assignmentPending,
+        inProgress,
+        completed,
+        closed,
+        paid
+    }
+
+    struct Bounty {
+        Status status;
+        bool open;
+        address issuer;
+        uint128 amount;
+        string githubIssue;
+        optional(string) pullRequest;
+        optional(address[]) assigned; 
+    }
+
+    Bounty[] public bounties;
+
+    event oracleQuery(Bounty bounty);
+
+    constructor() public {
+        tvm.accept();
+        ORACLE_ADDRESS = msg.sender;
+    }
+
+    function initBounty(bool open, uint128 deposit, string ghIssue) external {
+        require(deposit >= msg.value + 1 ever, 101, "Insufficient deposit amount"); // if we using require, we are frozing incoming value in this contract, so just return it         
+        tvm.rawReserve(1 ever, 0); // we will always reserve 1 venom on this contract
+        Bounty newBounty = Bounty({status: Status.available, open: open, issuer: msg.sender, amount: msg.value, githubIssue: ghIssue, pullRequest: null, assigned: null});
+        bounties.push(newBounty);
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+        //log 
+    }
+
+    function attemptBounty(uint256 index, address[] bountyHunters, string pullRequest) public {
+        tvm.accept();
+        Bounty currBounty = bounties[index];
+        require(currBounty.status == Status.available, 101, "Bounty is taken");
+        require(currBounty.open, 101, "not open to public");
+        tvm.rawReserve(1 ever, 0); 
+        bounties[index] = Bounty({status: Status.inProgress, open: currBounty.open, issuer: currBounty.issuer, amount: currBounty.amount, githubIssue: currBounty.githubIssue, pullRequest: pullRequest, assigned: bountyHunters});
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+        //log 
+    }
+
+    function assignBounty(uint256 index, address[] bountyHunters) public {
+        tvm.accept();
+        Bounty currBounty = bounties[index];
+        require(currBounty.status == Status.available, 101, "Bounty is taken");
+        require(currBounty.open, 101, "not open to public");
+        tvm.rawReserve(1 ever, 0);
+        bounties[index] = Bounty({status: Status.assignmentPending, open: currBounty.open, issuer: currBounty.issuer, amount: currBounty.amount, githubIssue: currBounty.githubIssue, pullRequest: currBounty.pullRequest, assigned: bountyHunters});    
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+    }
+    // If the owner of the bounty called assignBounty, then one of the prospective assignees can accept for the whole group 
+    function acceptOpportunity(uint256 index, string pullRequest) public {
+        tvm.accept();
+        tvm.rawReserve(1 ever, 0);
+        Bounty currBounty = bounties[index];
+        require(currBounty.status == Status.assignmentPending, 101, "Bounty was not assigned");
+        bool included = false;
+        for(uint256 i; i < currBounty.assigned.get().length; ++i){
+            if (msg.sender == currBounty.assigned.get()[i]) {
+                included = true;
+            }
+        }
+        require(included, 101, "not open to public");
+        bounties[index] = Bounty({status: Status.inProgress, open: currBounty.open, issuer: currBounty.issuer, amount: currBounty.amount, githubIssue: currBounty.githubIssue, pullRequest: pullRequest, assigned: currBounty.assigned});
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+    }
+
+    function queryOracle(uint256 index) view public {
+        tvm.accept();
+        tvm.rawReserve(1 ever, 0);
+        emit oracleQuery(bounties[index]);
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+    }
+    
+    function updateBountyStatus(uint256 index, Status state) public {
+        tvm.accept();
+        Bounty currBounty = bounties[index];
+        require(state == Status.closed || state == Status.completed, 101, "Invalid state");
+        tvm.rawReserve(1 ever, 0);
+        require(msg.sender == ORACLE_ADDRESS, 101, "Not an oracle");
+        bounties[index] = Bounty({status: state, open: currBounty.open, issuer: currBounty.issuer, amount: currBounty.amount, githubIssue: currBounty.githubIssue, pullRequest: currBounty.pullRequest, assigned: currBounty.assigned});
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+    }
+    
+    function payout(uint256 index) public {
+        tvm.accept();
+        Bounty currBounty = bounties[index];
+        require(currBounty.status == Status.completed, 101, "Not payable or already paid");
+        tvm.rawReserve(1 ever, 0);
+        bounties[index] = Bounty({status: Status.paid, open: currBounty.open, issuer: currBounty.issuer, amount: currBounty.amount, githubIssue: currBounty.githubIssue, pullRequest: currBounty.pullRequest, assigned: currBounty.assigned});
+        uint128 pay = currBounty.amount / uint128(currBounty.assigned.get().length);
+        for(uint256 i; i < currBounty.assigned.get().length; ++i){
+            msg.sender.transfer({value: pay, flag: 0, bounce: false});
+        }
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+    }    
+    
+    function withdrawBounty(uint256 index) public {
+        tvm.accept();
+        tvm.rawReserve(1 ever, 0);
+        Bounty currBounty = bounties[index];
+        require(msg.sender == currBounty.issuer, 101, "Not the issuer");
+        bounties[index] = Bounty({status: Status.closed, open: currBounty.open, issuer: currBounty.issuer, amount: 0, githubIssue: currBounty.githubIssue, pullRequest: currBounty.pullRequest, assigned: currBounty.assigned});
+        msg.sender.transfer({value: currBounty.amount, flag: 0, bounce: false});
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+    }
+    function reassignBounty(uint256 index) public {
+        tvm.accept();
+        tvm.rawReserve(1 ever, 0);
+        Bounty currBounty = bounties[index];
+        require(msg.sender == currBounty.issuer && currBounty.status == Status.closed, 101, "Not the issuer");
+        bounties[index] = Bounty({status: Status.closed, open: currBounty.open, issuer: currBounty.issuer, amount: 0, githubIssue: currBounty.githubIssue, pullRequest: currBounty.pullRequest, assigned: currBounty.assigned});
+        msg.sender.transfer({value: currBounty.amount, flag: 0, bounce: false});
+        msg.sender.transfer({value: 0, flag: 128, bounce: false});
+    }
+
+}
