@@ -2,9 +2,9 @@ from celery import Celery
 from opa import get_pr_from_issue
 import subprocess
 
-redis_hostname = "redis"
-celery_app = Celery("worker", broker=f"redis://localhost:6379/0",
-                    backend=f"redis://localhost:6379/0")
+redis_hostname = "127.0.0.1"  # set redis hostname
+celery_app = Celery("worker", broker=f"redis://{redis_hostname}:6379/0", 
+                    backend=f"redis://{redis_hostname}:6379/0")
 
 
 @celery_app.task
