@@ -30,6 +30,7 @@ cd ../../../pythonwatcher/
 
 # Activate Python virtual environment
 source bin/activate
+cd ..
 
 # Install Python requirements
 pip3 install -r requirements.txt
