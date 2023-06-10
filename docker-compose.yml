@@ -15,3 +15,10 @@ services:
       - "8001:8001"
     depends_on:
       - redis
+  local-node:
+    image: tonlabs/local-node
+    ports:
+      - "80:80"
+    environment:
+      USER_AGREEMENT: "yes"
+    restart: always

@@ -1,0 +1,1852 @@
+.version sol 0.62.0
+
+.macro constructor
+DROP
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+GETGLOB 6
+THROWIF 51
+ENDS
+.loc ../contracts/bountyboard.tsol, 32
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 33
+GETGLOB 9
+SETGLOB 10
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro initBounty
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 36
+OVER
+PUSHCONT {
+	LDI 1
+	LDREF
+	ENDS
+	CTOS
+}
+PUSHCONT {
+	LDI 1
+}
+IFELSE
+LDU 128
+LDREF
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $initBounty_46716fc0_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro initBounty_46716fc0_internal_macro
+.loc ../contracts/bountyboard.tsol, 37
+PUSHREF {
+	.blob x496e73756666696369656e74206465706f73697420616d6f756e74
+}
+ROT
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 1000000000
+ADD
+UFITS 128
+GEQ
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 38
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 39
+PUSHINT 0
+ROT
+GETGLOB 9
+DEPTH
+ADDCONST -2
+PICK
+ROLL 4
+NULL
+DUP
+TUPLE 7
+.loc ../contracts/bountyboard.tsol, 40
+GETGLOB 11
+SWAP
+CALLREF {
+	UNTUPLE 7
+	REVERSE 7, 0
+	NEWC
+	STU 8
+	STI 1
+	STSLICE
+	STU 128
+	STREF
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		STREF
+	}
+	IFELSE
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		SWAP
+		UNPAIR
+		XCHG S2
+		STU 32
+		STDICT
+	}
+	IFELSE
+}
+SWAP
+UNPAIR
+OVER
+INC
+ROLLREV 3
+PUSHINT 32
+DICTUSETB
+PAIR
+SETGLOB 11
+.loc ../contracts/bountyboard.tsol, 41
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro attemptBounty
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 45
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+LDREF
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $attemptBounty_683ee0cb_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	attemptBounty_683ee0cb_internal
+.type	attemptBounty_683ee0cb_internal, @function
+CALL $attemptBounty_683ee0cb_internal_macro$
+
+.macro attemptBounty_683ee0cb_internal_macro
+.loc ../contracts/bountyboard.tsol, 46
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 47
+PUSH S2
+GETGLOB 11
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDU 8
+	OVER
+	GTINT 5
+	THROWIF 73
+	LDI 1
+	LDMSGADDR
+	LDU 128
+	LDREF
+	LDI 1
+	SWAP
+	NULLROTRIFNOT
+	PUSHCONT {
+		LDREF
+	}
+	IF
+	LDI 1
+	SWAP
+	NULLSWAPIFNOT
+	PUSHCONT {
+		LDU 32
+		LDDICT
+		ROTREV
+		PAIR
+	}
+	IF
+	SWAP
+	ENDS
+	TUPLE 7
+}
+.loc ../contracts/bountyboard.tsol, 48
+PUSHREF {
+	.blob x426f756e74792069732074616b656e
+}
+OVER
+FIRST
+EQINT 0
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 49
+PUSHREF {
+	.blob x6e6f74206f70656e20746f207075626c6963
+}
+OVER
+SECOND
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 50
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 51
+PUSHINT 2
+OVER
+SECOND
+PUSH S2
+THIRD
+PUSH S3
+INDEX 3
+ROLL 4
+INDEX 4
+BLKSWAP 2, 5
+SWAP
+TUPLE 7
+GETGLOB 11
+UNPAIR
+ROLL 3
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 3
+CALLREF {
+	UNTUPLE 7
+	REVERSE 7, 0
+	NEWC
+	STU 8
+	STI 1
+	STSLICE
+	STU 128
+	STREF
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		STREF
+	}
+	IFELSE
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		SWAP
+		UNPAIR
+		XCHG S2
+		STU 32
+		STDICT
+	}
+	IFELSE
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETGLOB 11
+.loc ../contracts/bountyboard.tsol, 52
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro assignBounty
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 56
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $assignBounty_1dc2f1d0_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	assignBounty_1dc2f1d0_internal
+.type	assignBounty_1dc2f1d0_internal, @function
+CALL $assignBounty_1dc2f1d0_internal_macro$
+
+.macro assignBounty_1dc2f1d0_internal_macro
+.loc ../contracts/bountyboard.tsol, 57
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 58
+OVER
+GETGLOB 11
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDU 8
+	OVER
+	GTINT 5
+	THROWIF 73
+	LDI 1
+	LDMSGADDR
+	LDU 128
+	LDREF
+	LDI 1
+	SWAP
+	NULLROTRIFNOT
+	PUSHCONT {
+		LDREF
+	}
+	IF
+	LDI 1
+	SWAP
+	NULLSWAPIFNOT
+	PUSHCONT {
+		LDU 32
+		LDDICT
+		ROTREV
+		PAIR
+	}
+	IF
+	SWAP
+	ENDS
+	TUPLE 7
+}
+.loc ../contracts/bountyboard.tsol, 59
+PUSHREF {
+	.blob x426f756e74792069732074616b656e
+}
+OVER
+FIRST
+EQINT 0
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 60
+PUSHREF {
+	.blob x6e6f74206f70656e20746f207075626c6963
+}
+OVER
+SECOND
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 61
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 62
+PUSHINT 1
+OVER
+SECOND
+PUSH S2
+THIRD
+PUSH S3
+INDEX 3
+PUSH S4
+INDEX 4
+ROLL 5
+INDEX 5
+ROLL 6
+TUPLE 7
+GETGLOB 11
+UNPAIR
+ROLL 3
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 3
+CALLREF {
+	UNTUPLE 7
+	REVERSE 7, 0
+	NEWC
+	STU 8
+	STI 1
+	STSLICE
+	STU 128
+	STREF
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		STREF
+	}
+	IFELSE
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		SWAP
+		UNPAIR
+		XCHG S2
+		STU 32
+		STDICT
+	}
+	IFELSE
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETGLOB 11
+.loc ../contracts/bountyboard.tsol, 63
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro acceptOpportunity
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 66
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+LDREF
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $acceptOpportunity_3032f6d5_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	acceptOpportunity_3032f6d5_internal
+.type	acceptOpportunity_3032f6d5_internal, @function
+CALL $acceptOpportunity_3032f6d5_internal_macro$
+
+.macro acceptOpportunity_3032f6d5_internal_macro
+.loc ../contracts/bountyboard.tsol, 67
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 68
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 69
+OVER
+GETGLOB 11
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDU 8
+	OVER
+	GTINT 5
+	THROWIF 73
+	LDI 1
+	LDMSGADDR
+	LDU 128
+	LDREF
+	LDI 1
+	SWAP
+	NULLROTRIFNOT
+	PUSHCONT {
+		LDREF
+	}
+	IF
+	LDI 1
+	SWAP
+	NULLSWAPIFNOT
+	PUSHCONT {
+		LDU 32
+		LDDICT
+		ROTREV
+		PAIR
+	}
+	IF
+	SWAP
+	ENDS
+	TUPLE 7
+}
+.loc ../contracts/bountyboard.tsol, 70
+PUSHREF {
+	.blob x426f756e747920776173206e6f742061737369676e6564
+}
+OVER
+FIRST
+EQINT 1
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 71
+FALSE
+DUP
+.loc ../contracts/bountyboard.tsol, 72
+PUSHCONT {
+	PUSH2 S0, S2
+	INDEX 6
+	DUP
+	ISNULL
+	THROWIF 63
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/bountyboard.tsol, 73
+	GETGLOB 9
+	PUSH2 S1, S3
+	INDEX 6
+	DUP
+	ISNULL
+	THROWIF 63
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	SDEQ
+	PUSHCONT {
+		.loc ../contracts/bountyboard.tsol, 74
+		TRUE
+		POP S2
+		.loc ../contracts/bountyboard.tsol, 0
+	}
+	IF
+	.loc ../contracts/bountyboard.tsol, 72
+	INC
+	.loc ../contracts/bountyboard.tsol, 0
+}
+WHILE
+DROP
+.loc ../contracts/bountyboard.tsol, 77
+PUSHREF {
+	.blob x6e6f74206f70656e20746f207075626c6963
+}
+SWAP
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 78
+PUSHINT 2
+OVER
+SECOND
+PUSH S2
+THIRD
+PUSH S3
+INDEX 3
+PUSH S4
+INDEX 4
+BLKSWAP 2, 5
+INDEX 6
+TUPLE 7
+GETGLOB 11
+UNPAIR
+ROLL 3
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 3
+CALLREF {
+	UNTUPLE 7
+	REVERSE 7, 0
+	NEWC
+	STU 8
+	STI 1
+	STSLICE
+	STU 128
+	STREF
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		STREF
+	}
+	IFELSE
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		SWAP
+		UNPAIR
+		XCHG S2
+		STU 32
+		STDICT
+	}
+	IFELSE
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETGLOB 11
+.loc ../contracts/bountyboard.tsol, 79
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro queryOracle
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 82
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $queryOracle_5bc625d0_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	queryOracle_5bc625d0_internal
+.type	queryOracle_5bc625d0_internal, @function
+CALL $queryOracle_5bc625d0_internal_macro$
+
+.macro queryOracle_5bc625d0_internal_macro
+.loc ../contracts/bountyboard.tsol, 83
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 84
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 85
+GETGLOB 11
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDU 8
+	OVER
+	GTINT 5
+	THROWIF 73
+	LDI 1
+	LDMSGADDR
+	LDU 128
+	LDREF
+	LDI 1
+	SWAP
+	NULLROTRIFNOT
+	PUSHCONT {
+		LDREF
+	}
+	IF
+	LDI 1
+	SWAP
+	NULLSWAPIFNOT
+	PUSHCONT {
+		LDU 32
+		LDDICT
+		ROTREV
+		PAIR
+	}
+	IF
+	SWAP
+	ENDS
+	TUPLE 7
+}
+PUSHSLICE xc0000000000000000000000000366c3d94
+NEWC
+STSLICE
+SWAP
+UNTUPLE 7
+REVERSE 8, 0
+STU 8
+STI 1
+STSLICE
+STU 128
+STREF
+XCPU S1, S0
+ISNULL
+PUSHCONT {
+	DROP
+	STSLICECONST 0
+}
+PUSHCONT {
+	SWAP
+	STSLICECONST 1
+	STREF
+}
+IFELSE
+XCPU S1, S0
+ISNULL
+PUSHCONT {
+	DROP
+	STSLICECONST 0
+}
+PUSHCONT {
+	SWAP
+	STSLICECONST 1
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+}
+IFELSE
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 86
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro updateBountyStatus
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 89
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+LDU 8
+OVER
+GTINT 5
+THROWIF 73
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $updateBountyStatus_bcca6751_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	updateBountyStatus_bcca6751_internal
+.type	updateBountyStatus_bcca6751_internal, @function
+CALL $updateBountyStatus_bcca6751_internal_macro$
+
+.macro updateBountyStatus_bcca6751_internal_macro
+.loc ../contracts/bountyboard.tsol, 90
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 91
+OVER
+GETGLOB 11
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDU 8
+	OVER
+	GTINT 5
+	THROWIF 73
+	LDI 1
+	LDMSGADDR
+	LDU 128
+	LDREF
+	LDI 1
+	SWAP
+	NULLROTRIFNOT
+	PUSHCONT {
+		LDREF
+	}
+	IF
+	LDI 1
+	SWAP
+	NULLSWAPIFNOT
+	PUSHCONT {
+		LDU 32
+		LDDICT
+		ROTREV
+		PAIR
+	}
+	IF
+	SWAP
+	ENDS
+	TUPLE 7
+}
+.loc ../contracts/bountyboard.tsol, 92
+PUSHREF {
+	.blob x496e76616c6964207374617465
+}
+PUSH S2
+EQINT 4
+PUSH S3
+EQINT 3
+OR
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 93
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 94
+PUSHREF {
+	.blob x4e6f7420616e206f7261636c65
+}
+GETGLOB 9
+GETGLOB 10
+SDEQ
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 95
+TUCK
+SECOND
+PUSH S2
+THIRD
+PUSH S3
+INDEX 3
+PUSH S4
+INDEX 4
+PUSH S5
+INDEX 5
+ROLL 6
+INDEX 6
+TUPLE 7
+GETGLOB 11
+UNPAIR
+ROLL 3
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 3
+CALLREF {
+	UNTUPLE 7
+	REVERSE 7, 0
+	NEWC
+	STU 8
+	STI 1
+	STSLICE
+	STU 128
+	STREF
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		STREF
+	}
+	IFELSE
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		SWAP
+		UNPAIR
+		XCHG S2
+		STU 32
+		STDICT
+	}
+	IFELSE
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETGLOB 11
+.loc ../contracts/bountyboard.tsol, 96
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro payout
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 99
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $payout_e1152343_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	payout_e1152343_internal
+.type	payout_e1152343_internal, @function
+CALL $payout_e1152343_internal_macro$
+
+.macro payout_e1152343_internal_macro
+.loc ../contracts/bountyboard.tsol, 100
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 101
+DUP
+GETGLOB 11
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDU 8
+	OVER
+	GTINT 5
+	THROWIF 73
+	LDI 1
+	LDMSGADDR
+	LDU 128
+	LDREF
+	LDI 1
+	SWAP
+	NULLROTRIFNOT
+	PUSHCONT {
+		LDREF
+	}
+	IF
+	LDI 1
+	SWAP
+	NULLSWAPIFNOT
+	PUSHCONT {
+		LDU 32
+		LDDICT
+		ROTREV
+		PAIR
+	}
+	IF
+	SWAP
+	ENDS
+	TUPLE 7
+}
+.loc ../contracts/bountyboard.tsol, 102
+PUSHREF {
+	.blob x4e6f742070617961626c65206f7220616c72656164792070616964
+}
+OVER
+FIRST
+EQINT 3
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 103
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 104
+PUSHINT 5
+OVER
+SECOND
+PUSH S2
+THIRD
+PUSH S3
+INDEX 3
+PUSH S4
+INDEX 4
+PUSH S5
+INDEX 5
+PUSH S6
+INDEX 6
+TUPLE 7
+GETGLOB 11
+UNPAIR
+ROLL 4
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 3
+CALLREF {
+	UNTUPLE 7
+	REVERSE 7, 0
+	NEWC
+	STU 8
+	STI 1
+	STSLICE
+	STU 128
+	STREF
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		STREF
+	}
+	IFELSE
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		SWAP
+		UNPAIR
+		XCHG S2
+		STU 32
+		STDICT
+	}
+	IFELSE
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETGLOB 11
+.loc ../contracts/bountyboard.tsol, 105
+DUP
+INDEX 3
+OVER
+INDEX 6
+DUP
+ISNULL
+THROWIF 63
+FIRST
+UFITS 128
+DIV
+.loc ../contracts/bountyboard.tsol, 106
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S2
+	INDEX 6
+	DUP
+	ISNULL
+	THROWIF 63
+	FIRST
+	LESS
+}
+PUSHCONT {
+	.loc ../contracts/bountyboard.tsol, 107
+	OVER
+	GETGLOB 9
+	NEWC
+	STSLICECONST x42_
+	STSLICE
+	SWAP
+	STGRAMS
+	PUSHINT 107
+	STZEROES
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+	.loc ../contracts/bountyboard.tsol, 106
+	INC
+	.loc ../contracts/bountyboard.tsol, 0
+}
+WHILE
+BLKDROP 3
+.loc ../contracts/bountyboard.tsol, 109
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro withdrawBounty
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 112
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $withdrawBounty_5a8e77a5_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	withdrawBounty_5a8e77a5_internal
+.type	withdrawBounty_5a8e77a5_internal, @function
+CALL $withdrawBounty_5a8e77a5_internal_macro$
+
+.macro withdrawBounty_5a8e77a5_internal_macro
+.loc ../contracts/bountyboard.tsol, 113
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 114
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 115
+DUP
+GETGLOB 11
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDU 8
+	OVER
+	GTINT 5
+	THROWIF 73
+	LDI 1
+	LDMSGADDR
+	LDU 128
+	LDREF
+	LDI 1
+	SWAP
+	NULLROTRIFNOT
+	PUSHCONT {
+		LDREF
+	}
+	IF
+	LDI 1
+	SWAP
+	NULLSWAPIFNOT
+	PUSHCONT {
+		LDU 32
+		LDDICT
+		ROTREV
+		PAIR
+	}
+	IF
+	SWAP
+	ENDS
+	TUPLE 7
+}
+.loc ../contracts/bountyboard.tsol, 116
+PUSHREF {
+	.blob x4e6f742074686520697373756572
+}
+GETGLOB 9
+PUSH S2
+THIRD
+SDEQ
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 117
+PUSHINT 4
+OVER
+SECOND
+PUSH S2
+THIRD
+PUSHINT 0
+PUSH S4
+INDEX 4
+PUSH S5
+INDEX 5
+PUSH S6
+INDEX 6
+TUPLE 7
+GETGLOB 11
+UNPAIR
+ROLL 4
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 3
+CALLREF {
+	UNTUPLE 7
+	REVERSE 7, 0
+	NEWC
+	STU 8
+	STI 1
+	STSLICE
+	STU 128
+	STREF
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		STREF
+	}
+	IFELSE
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		SWAP
+		UNPAIR
+		XCHG S2
+		STU 32
+		STDICT
+	}
+	IFELSE
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETGLOB 11
+.loc ../contracts/bountyboard.tsol, 118
+INDEX 3
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+SWAP
+STGRAMS
+PUSHINT 107
+STZEROES
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 119
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro reassignBounty
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/bountyboard.tsol, 121
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+ENDS
+.loc ../contracts/bountyboard.tsol, 0
+CALLREF {
+	CALL $reassignBounty_d944ab12_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	reassignBounty_d944ab12_internal
+.type	reassignBounty_d944ab12_internal, @function
+CALL $reassignBounty_d944ab12_internal_macro$
+
+.macro reassignBounty_d944ab12_internal_macro
+.loc ../contracts/bountyboard.tsol, 122
+ACCEPT
+.loc ../contracts/bountyboard.tsol, 123
+PUSHINT 1000000000
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/bountyboard.tsol, 124
+DUP
+GETGLOB 11
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+CALLREF {
+	LDU 8
+	OVER
+	GTINT 5
+	THROWIF 73
+	LDI 1
+	LDMSGADDR
+	LDU 128
+	LDREF
+	LDI 1
+	SWAP
+	NULLROTRIFNOT
+	PUSHCONT {
+		LDREF
+	}
+	IF
+	LDI 1
+	SWAP
+	NULLSWAPIFNOT
+	PUSHCONT {
+		LDU 32
+		LDDICT
+		ROTREV
+		PAIR
+	}
+	IF
+	SWAP
+	ENDS
+	TUPLE 7
+}
+.loc ../contracts/bountyboard.tsol, 125
+PUSHREF {
+	.blob x4e6f742074686520697373756572
+}
+GETGLOB 9
+PUSH S2
+THIRD
+SDEQ
+PUSH S2
+FIRST
+EQINT 4
+AND
+THROWARGIFNOT 101
+.loc ../contracts/bountyboard.tsol, 126
+PUSHINT 4
+OVER
+SECOND
+PUSH S2
+THIRD
+PUSHINT 0
+PUSH S4
+INDEX 4
+PUSH S5
+INDEX 5
+PUSH S6
+INDEX 6
+TUPLE 7
+GETGLOB 11
+UNPAIR
+ROLL 4
+TUCK
+PUSH S3
+LESS
+THROWIFNOT 50
+ROLL 3
+CALLREF {
+	UNTUPLE 7
+	REVERSE 7, 0
+	NEWC
+	STU 8
+	STI 1
+	STSLICE
+	STU 128
+	STREF
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		STREF
+	}
+	IFELSE
+	XCPU S1, S0
+	ISNULL
+	PUSHCONT {
+		DROP
+		STSLICECONST 0
+	}
+	PUSHCONT {
+		SWAP
+		STSLICECONST 1
+		SWAP
+		UNPAIR
+		XCHG S2
+		STU 32
+		STDICT
+	}
+	IFELSE
+}
+ROTREV
+PUSHINT 32
+DICTUSETB
+PAIR
+SETGLOB 11
+.loc ../contracts/bountyboard.tsol, 127
+INDEX 3
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+SWAP
+STGRAMS
+PUSHINT 107
+STZEROES
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 128
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/bountyboard.tsol, 0
+
+.macro c4_to_c7
+PUSHROOT
+CTOS
+LDU 256 ; pubkey c4
+LDU 64 ; pubkey timestamp c4
+LDU 1 ; ctor flag
+NIP
+LDMSGADDR
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+ENDS
+SETGLOB 11
+SETGLOB 10
+SETGLOB 3
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS
+SBITS
+GTINT 1
+PUSHCONT {
+	PUSHINT 0
+	PUSHROOT
+	CTOS
+	PLDDICT ; D
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	NEWDICT
+	PAIR
+	SETGLOB 11
+	SETGLOB 10
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+}
+IFREFELSE {
+	CALL $c4_to_c7$
+}
+
+.macro c7_to_c4
+GETGLOB 11
+GETGLOB 10
+GETGLOB 3
+GETGLOB 2
+NEWC
+STU 256
+STU 64
+STONE
+STSLICE
+SWAP
+UNPAIR
+XCHG S2
+STU 32
+STDICT
+ENDC
+POPROOT
+
+.macro upd_only_time_in_c4
+PUSHROOT
+CTOS
+LDU 256
+LDU 64
+NIP
+GETGLOB 3
+ROT
+NEWC
+STU 256
+STU 64
+STSLICE
+ENDC
+POPROOT
+
+.internal-alias :main_internal, 0
+.internal :main_internal
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSH S2
+CTOS
+LDU 4 ; bounced tail
+LDMSGADDR ; bounced src tail
+DROP
+SETGLOB 9
+MODPOW2 1
+IFRET
+OVER
+SEMPTY ; isEmpty
+IFJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+OVER
+LDUQ 32  ; [funcId] body' ok
+THROWIFNOT 60
+OVER
+IFNOTJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.internal-alias :main_external, -1
+.internal :main_external
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 9
+OVER
+CALLREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHPOW2 9
+	LDSLICEX ; signatureSlice msgSlice
+	DUP
+	HASHSU ; signatureSlice msgSlice hashMsgSlice
+	SWAP
+	LDU 1 ; signatureSlice hashMsgSlice hasPubkey msgSlice
+	SWAP
+	PUSHCONT {
+		LDU 256 ; signatureSlice hashMsgSlice pubkey msgSlice
+		XCHG S3
+		SWAP
+	}
+	PUSHCONT {
+		XCHG S2
+		GETGLOB 2
+	}
+	IFELSE
+	CHKSIGNU ; msgSlice isSigned
+	THROWIFNOT 40
+}
+PUSHCONT {
+	LDU 1 ; hasPubkey msgSlice
+	SWAP
+	THROWIF 58
+}
+IFELSE
+LDU 64 ; timestamp msgSlice
+SWAP
+CALL $replay_protection_macro$
+LDU 32 ; expireAt msgSlice
+SWAP
+NOW ; msgSlice expireAt now
+GREATER ; msgSlice expireAt>now
+THROWIFNOT 57
+LDU 32 ; funcId body
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.macro bounties
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 11
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000edaab87a
+	NEWC
+	STSLICE
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro public_function_selector
+DUP
+PUSHINT 800044167
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 82896381
+	EQUAL
+	IFJMPREF {
+		CALL $updateBountyStatus$
+	}
+	DUP
+	PUSHINT 576318290
+	EQUAL
+	IFJMPREF {
+		CALL $reassignBounty$
+	}
+	DUP
+	PUSHINT 793555152
+	EQUAL
+	IFJMPREF {
+		CALL $initBounty$
+	}
+	DUP
+	PUSHINT 800044167
+	EQUAL
+	IFJMPREF {
+		CALL $attemptBounty$
+	}
+}
+DUP
+PUSHINT 1202969650
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 872384165
+	EQUAL
+	IFJMPREF {
+		CALL $queryOracle$
+	}
+	DUP
+	PUSHINT 1077100019
+	EQUAL
+	IFJMPREF {
+		CALL $withdrawBounty$
+	}
+	DUP
+	PUSHINT 1142654421
+	EQUAL
+	IFJMPREF {
+		CALL $payout$
+	}
+	DUP
+	PUSHINT 1202969650
+	EQUAL
+	IFJMPREF {
+		CALL $acceptOpportunity$
+	}
+}
+DUP
+PUSHINT 1839904890
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1681657274
+	EQUAL
+	IFJMPREF {
+		CALL $assignBounty$
+	}
+	DUP
+	PUSHINT 1756716863
+	EQUAL
+	IFJMPREF {
+		CALL $constructor$
+	}
+	DUP
+	PUSHINT 1839904890
+	EQUAL
+	IFJMPREF {
+		CALL $bounties$
+	}
+}
+

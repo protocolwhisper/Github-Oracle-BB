@@ -1,7 +1,9 @@
 from celery import Celery
 from opa import get_pr_from_issue
-redis_hostname = "redis"
-celery_app = Celery("worker", broker=f"redis://{redis_hostname}:6379/0",
+import subprocess
+
+redis_hostname = "127.0.0.1"  # set redis hostname
+celery_app = Celery("worker", broker=f"redis://{redis_hostname}:6379/0", 
                     backend=f"redis://{redis_hostname}:6379/0")
 
 
@@ -16,6 +18,7 @@ def poll_github_api(url):
         print(data)
         if data[1] is not None:
             # Process the data or store it as needed
+            subprocess.run(["npx", "locklift", "run", "--network", "local", "--script", "scripts/writebounty.ts"], cwd="/oracletx/locklift/sample-project-typescript", shell=True)
             # execute
             print("Your watcher works")
             break
