@@ -14,7 +14,8 @@ Ensure you have the following:
 1. To wake up the Oracle, simply run:
     shell
     sudo ./initoracle.sh
-    
+   ![Alt text](https://i.postimg.cc/9fYWjxY9/oracle.png)
+
 
 2. To let the Oracle rest, use:
     shell
